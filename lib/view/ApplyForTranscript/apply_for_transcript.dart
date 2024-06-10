@@ -1,6 +1,7 @@
 import 'package:employees_attendence/widgets/custom_botton.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'dart:io';
 import '../../Controller/ApplyForTranscriptController/apply_for_transcript_controller.dart';
@@ -136,6 +137,7 @@ class _ApplyForLeaveState extends State<ApplyForTranscript> {
   }
 
   TextEditingController? DOBController = TextEditingController();
+  final TextEditingController _cnicController = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -398,12 +400,18 @@ class _ApplyForLeaveState extends State<ApplyForTranscript> {
                       height: 10,
                     ),
                     CustomTextFormField(
+                      controller: _cnicController,
                       keyboardType: TextInputType.number,
-                      hintText: 'Enter Your CNIC No',
-                      validator: (value) =>
-                          value == null || value.isEmpty || value.length != 13
-                              ? 'Please enter your CNIC No'
-                              : null,
+                      inputFormatters: [CNICTextInputFormatter()], // Define the formatter
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your CNIC No';
+                        } else if (value.length != 15) {
+                          return 'CNIC No should be exactly 13 digits';
+                        }
+                        return null;
+                      },
+                      hintText: 'Enter Your CNIC N0',
                     ),
                     const SizedBox(
                       height: 20,
@@ -526,12 +534,14 @@ class _ApplyForLeaveState extends State<ApplyForTranscript> {
                     ),
                     CustomTextFormField(
                       keyboardType: TextInputType.number,
+                      inputFormatters: [PhoneTextInputFormatter()], // Define the formatter
                       hintText: 'Enter Your Cell No',
                       validator: (value) =>
-                          value == null || value.isEmpty || value.length != 11
-                              ? 'Please enter your cell number'
-                              : null,
+                      value == null || value.isEmpty || value.length != 11
+                          ? 'Please enter your cell number'
+                          : null,
                     ),
+
                     const SizedBox(
                       height: 20,
                     ),
@@ -1020,46 +1030,50 @@ class _ApplyForLeaveState extends State<ApplyForTranscript> {
                       label: 'Submit',
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
-                        setState(() {
-                          bool hasError = false; // Track if there's any error
+                          setState(() {
+                            bool hasError = false; // Track if there's any error
 
-                          if (_matricFilePath == null) {
-                            _errorUploadCertification = 'Please upload the Matriculation Certificate.';
-                            hasError = true; // Set hasError to true if there's an error
-                          } else {
-                            _errorUploadCertification = null; // Clear the error message if there's no error
-                          }
-                          if (_cnicFilePath == null) {
-                            _errorUploadCNIC = 'Please upload the Original CNIC';
-                            hasError = true; // Set hasError to true if there's an error
-                          } else {
-                            _errorUploadCNIC = null; // Clear the error message if there's no error
-                          }
+                            if (_matricFilePath == null) {
+                              _errorUploadCertification = 'Please upload the Matriculation Certificate.';
+                              hasError = true; // Set hasError to true if there's an error
+                            } else {
+                              _errorUploadCertification = null; // Clear the error message if there's no error
+                            }
+                            if (_cnicFilePath == null) {
+                              _errorUploadCNIC = 'Please upload the Original CNIC';
+                              hasError = true; // Set hasError to true if there's an error
+                            } else {
+                              _errorUploadCNIC = null; // Clear the error message if there's no error
+                            }
 
-                          if (_passportFilePath == null) {
-                            _errorUploadPassport = 'Please upload your Image';
-                            hasError = true; // Set hasError to true if there's an error
-                          } else {
-                            _errorUploadPassport = null; // Clear the error message if there's no error
-                          }
-                          if (_transcriptFilePath == null) {
-                            _errorTranscriptFile = 'Please upload your transcript';
-                            hasError = true; // Set hasError to true if there's an error
-                          } else {
-                            _errorTranscriptFile = null; // Clear the error message if there's no error
-                          }
+                            if (_passportFilePath == null) {
+                              _errorUploadPassport = 'Please upload your Image';
+                              hasError = true; // Set hasError to true if there's an error
+                            } else {
+                              _errorUploadPassport = null; // Clear the error message if there's no error
+                            }
 
-                          if (!hasError) {
-                          if (documentType == 'Degree') {
-                            _showDegreeNoticeBox(context);
-                          } else if (documentType == 'Transcript') {
-                            _showTranscriptNoticeBox(context);
-                          }
-                          }
-                        });
+                            if (documentType == 'Degree') {
+                              if (_transcriptFilePath == null) {
+                                _errorTranscriptFile = 'Please upload your transcript';
+                                hasError = true; // Set hasError to true if there's an error
+                              } else {
+                                _errorTranscriptFile = null; // Clear the error message if there's no error
+                              }
+                            }
+
+                            if (!hasError) {
+                              if (documentType == 'Degree') {
+                                _showDegreeNoticeBox(context);
+                              } else if (documentType == 'Transcript') {
+                                _showTranscriptNoticeBox(context);
+                              }
+                            }
+                          });
                         }
                       },
                     ),
+
                     const SizedBox(
                       height: 20,
                     ),
@@ -1339,6 +1353,57 @@ class _ApplyForLeaveState extends State<ApplyForTranscript> {
           ]
         );
       },
+    );
+  }
+}
+class CNICTextInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue,
+      TextEditingValue newValue,
+      ) {
+    String newText = newValue.text;
+
+    if (newText.length == 5 || newText.length == 13) {
+      newText += '-';
+    }
+
+    // Check if the length of the CNIC is already 15, if yes, do not allow further input
+    if (newText.length > 15) {
+      return oldValue; // Return the old value to prevent further input
+    }
+
+    return TextEditingValue(
+      text: newText,
+      selection: TextSelection.collapsed(offset: newText.length),
+    );
+  }
+}
+class PhoneTextInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue,
+      TextEditingValue newValue,
+      ) {
+    String newText = newValue.text;
+
+    // Append "03" to the beginning if it's not already there
+    if (!newText.startsWith("03")) {
+      newText = "03$newText";
+    }
+
+    if (newText.length == 4) {
+      newText += '-';
+    }
+
+    // Check if the length of the phone number is already 11, if yes, do not allow further input
+    if (newText.length > 12) {
+      return oldValue; // Return the old value to prevent further input
+    }
+
+    return TextEditingValue(
+      text: newText,
+      selection: TextSelection.collapsed(offset: newText.length),
     );
   }
 }

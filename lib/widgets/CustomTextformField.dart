@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final String hintText;
@@ -13,6 +14,7 @@ class CustomTextFormField extends StatelessWidget {
   final int? maxLines;
   final bool? obscureText;
   final TextInputType? keyboardType;
+  final List<TextInputFormatter>? inputFormatters;
  final  void Function(String)? onFieldSubmitted;
   const CustomTextFormField(
       {super.key,
@@ -23,7 +25,7 @@ class CustomTextFormField extends StatelessWidget {
       this.suffixIcon,
         this.onTapSuffixIcon,
         this.suffixIconColor,
-        this.contentPadding, this.borderColor, this.onFieldSubmitted, this.maxLines, this.height, this.validator, this.obscureText, this.keyboardType,
+        this.contentPadding, this.borderColor, this.onFieldSubmitted, this.maxLines, this.height, this.validator, this.obscureText, this.keyboardType, this.inputFormatters,
       });
 
   @override
@@ -31,6 +33,7 @@ class CustomTextFormField extends StatelessWidget {
     return SizedBox(
       height: height ,
       child: TextFormField(
+        inputFormatters:inputFormatters,
         keyboardType: keyboardType,
         obscureText: obscureText ?? false,
         validator: validator,
