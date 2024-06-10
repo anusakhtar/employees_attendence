@@ -1,4 +1,5 @@
 import 'package:employees_attendence/view/ApplyForTranscript/apply_for_transcript.dart';
+import 'package:employees_attendence/view/RequestDetailScreen/request_detail_screen.dart';
 import 'package:employees_attendence/view/TranscriptRequestDetailPage/transcript_request_deatil_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Employee Attendance App',
-      home: ApplyForTranscript(),
+      home: RequestDetailScreen(),
     );
   }
 }

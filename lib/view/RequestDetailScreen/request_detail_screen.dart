@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 import '../../widgets/apptext.dart';
@@ -11,7 +13,13 @@ class RequestDetailScreen extends StatefulWidget {
 }
 
 class _RequestDetailScreenState extends State<RequestDetailScreen> {
-  List<String> progressList = ['Pending','Verification','InProgress','Issued','Delivered'];
+  List<String> progressList = [
+    'Pending',
+    'Verification',
+    'InProgress',
+    'Issued',
+    'Delivered'
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,52 +37,267 @@ class _RequestDetailScreenState extends State<RequestDetailScreen> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
-          child: Column(
-            children: [
-              _buildStatusRow(),
-              SizedBox(height: 30,),
-          Expanded(
-                  child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 20,horizontal: 10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: Colors.grey),
-                    ),
-                    child: ListView(
-                      children: [
-                        _buildInfoRow('Reference #:', _buildStyledContainer('239045', Colors.teal)),
-                        _buildInfoRow('Status:', _buildStyledContainer('pending', Colors.orange)),
-                        _buildInfoRow('Apply Date:', '12-06-23'),
-                        _buildInfoRow('Due Date:', '12-07-23'),
-                        _buildInfoRow('Issue Date:', '-'),
-                        _buildInfoRow('Delivered Date:', '-'),
-                        _buildInfoRow('Document #:', '-'),
-                        _buildInfoRow('Application For:', _buildStyledContainer('Degree', Colors.lightGreen)),
-                        _buildInfoRow('Normal/Urgent:', _buildStyledContainer('Normal', Colors.blueAccent)),
-                        _buildInfoRow('Original/Duplicate:', _buildStyledContainer('Original', Colors.blueAccent)),
-                        _buildInfoRow('Till Semesters:', '4'),
-                        _buildInfoRow('Student Name:', 'Muhammad Anus'),
-                        _buildInfoRow('Student CNIC:', '35401-2334567-1'),
-                        _buildInfoRow('Date of Birth:', '12-12-2024'),
-                        _buildInfoRow('Timing:', 'weekend'),
-                        _buildInfoRow('Mobile Number:', '0343-1451403'),
-                        _buildInfoRow('Email:', 'anusakhtar@gmail.com'),
-                        _buildInfoRow('Address:', 'Minhaj university Lahore, Pipe stop'),
-                        _buildInfoRow('Remarks:', '-'),
-                      ],
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildStatusRow(),
+                SizedBox(
+                  height: 30,
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.grey.shade50),
+                    gradient: LinearGradient(
+                      colors: [Colors.deepPurple.shade900, Colors.deepPurple.shade300],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
                     ),
                   ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            height: 62,
+                            width: 62,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(31),
+                              color: Colors.transparent,
+                              border: Border.all(color: Colors.white,width: 2),
+                            ),
+                            child: Center(
+                              child: Container(
+                                height: 50,
+                                width: 50,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(25),
+                                  color: Colors.white,
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(25),
+                                  // child: Image.asset('assets/anus1.jpeg',fit: BoxFit.cover,),
+                                  child: Icon(Icons.person,color: Colors.deepPurple,),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 15,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              AppText(
+                                text: 'Muhammad Anus',
+                                textColor: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18,
+                              ),
+                              AppText(
+                                text: 'anusakhtar@gmail.com',
+                                textColor: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        children: [
+                          Icon(Icons.phone,color: Colors.white,),
+                          SizedBox(width: 10,),
+                          AppText(
+                            text: '03431451403',
+                            textColor: Colors.white,
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 10,),
+                      Row(
+                        children: [
+                          Icon(Icons.location_on,color: Colors.white,),
+                          SizedBox(width: 10,),
+                          AppText(
+                            text: 'Minhaj university Lahore,Pipe stop',
+                            textColor: Colors.white,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Container(
+                      height: 30,
+                      width: 30,
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: Image.asset('assets/personal_info.png')),
+                    ),
+                    SizedBox(width: 10,),
+                    AppText(
+                      text: 'Personal Info',
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.grey.shade200),
+                    color: Colors.white,
+                  ),
+                  child: Column(
+                    children: [
+                      _buildInfoRow('Reference #:',
+                          _buildStyledContainer('239045', Colors.teal)),
+                      Divider(),
+                      _buildInfoRow('Student Name:', 'Muhammad Anus'),
+                      Divider(),
+                      _buildInfoRow('Student CNIC:', '35401-2334567-1'),
+                      Divider(),
+                      _buildInfoRow('Date of Birth:', '12-12-2024'),
+                      Divider(),
+                      _buildInfoRow('Timing:', 'weekend'),
+                      Divider(),
+                      _buildInfoRow('Mobile Number:', '0343-1451403'),
+                      Divider(),
+                      _buildInfoRow('Email:', 'anusakhtar@gmail.com'),
+                      Divider(),
+                      _buildInfoRow(
+                          'Address:', 'Minhaj university Lahore, Pipe stop'),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: [
+                    Container(
+                      height: 30,
+                      width: 30,
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: Image.asset('assets/challan.png')),
+                    ),
+                    SizedBox(width: 10,),
+                    AppText(
+                      text: 'Challan Info',
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
 
-            ],
+
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.grey.shade200),
+                    color: Colors.white,
+                  ),
+                  child: Column(
+                    children: [
+                      _buildInfoRow('Document #:', '-'),
+                      Divider(),
+                      _buildInfoRow('Status:',
+                          _buildStyledContainer('pending', Colors.orange)),
+                      Divider(),
+                      _buildInfoRow('Apply Date:', '12-06-23'),
+                      Divider(),
+                      _buildInfoRow('Due Date:', '12-07-23'),
+                      Divider(),
+                      _buildInfoRow('Issue Date:', '-'),
+                      Divider(),
+                      _buildInfoRow('Delivered Date:', '-'),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: [
+                    Container(
+                      height: 30,
+                      width: 30,
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: Image.asset('assets/other.png')),
+                    ),
+                    SizedBox(width: 10,),
+                    AppText(
+                      text: 'Other Info',
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.grey.shade200),
+                    color: Colors.white,
+                  ),
+                  child: Column(
+                    children: [
+                      _buildInfoRow('Application For:',
+                          _buildStyledContainer('Degree', Colors.lightGreen)),
+                      Divider(),
+                      _buildInfoRow('Normal/Urgent:',
+                          _buildStyledContainer('Normal', Colors.blueAccent)),
+                      Divider(),
+                      _buildInfoRow('Original/Duplicate:',
+                          _buildStyledContainer('Original', Colors.blueAccent)),
+                      Divider(),
+                      _buildInfoRow('Till Semesters:', '4'),
+                      Divider(),
+                      _buildInfoRow('Remarks:', '-'),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
+
   Widget _buildInfoRow(String label, dynamic value) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: Column(
         children: [
           Row(
@@ -85,29 +308,29 @@ class _RequestDetailScreenState extends State<RequestDetailScreen> {
                 label,
                 style: const TextStyle(
                   fontWeight: FontWeight.w600,
-                  fontSize: 16,
+                  fontSize: 14,
                   color: Colors.black,
                 ),
               ),
               Flexible(
                 child: value is String
                     ? Text(
-                  value,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey[800],
-                  ),
-                  textAlign: TextAlign.right,
-                )
+                        value,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey[800],
+                        ),
+                        textAlign: TextAlign.right,
+                      )
                     : value,
               ),
             ],
           ),
-          Divider(),
         ],
       ),
     );
   }
+
   Widget _buildStyledContainer(String text, Color color) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
@@ -119,11 +342,12 @@ class _RequestDetailScreenState extends State<RequestDetailScreen> {
         text,
         style: TextStyle(
           color: Colors.white,
-          fontSize: 12,
+          fontSize: 10,
         ),
       ),
     );
   }
+
   Widget _buildStatusRow() {
     int currentStep = 2;
 
@@ -137,11 +361,10 @@ class _RequestDetailScreenState extends State<RequestDetailScreen> {
           unselectedColor: Colors.grey,
           customStep: (index, color, _) => Container(
             padding: EdgeInsets.symmetric(vertical: 3),
-            decoration:  BoxDecoration(
+            decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
               color: color,
             ),
-
             child: Center(
               child: Column(
                 children: [
@@ -150,8 +373,14 @@ class _RequestDetailScreenState extends State<RequestDetailScreen> {
                     color: Colors.white,
                     size: 20,
                   ),
-                  SizedBox(height: 2,),
-                  AppText(text: progressList[index],fontSize: 8,textColor: Colors.white,),
+                  SizedBox(
+                    height: 2,
+                  ),
+                  AppText(
+                    text: progressList[index],
+                    fontSize: 8,
+                    textColor: Colors.white,
+                  ),
                 ],
               ),
             ),
@@ -160,6 +389,7 @@ class _RequestDetailScreenState extends State<RequestDetailScreen> {
       ],
     );
   }
+
   IconData _getStatusIcon(int index) {
     switch (index) {
       case 0:
@@ -196,5 +426,4 @@ class _RequestDetailScreenState extends State<RequestDetailScreen> {
         return Colors.grey;
     }
   }
-
 }

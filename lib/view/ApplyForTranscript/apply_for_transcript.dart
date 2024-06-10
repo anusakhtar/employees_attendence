@@ -435,6 +435,10 @@ class _ApplyForLeaveState extends State<ApplyForTranscript> {
                       height: 10,
                     ),
                     CustomTextFormField(
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [
+                        DateTextInputFormatter(),
+                      ],
                       controller: DOBController,
                       onTapSuffixIcon: () {
                         _pickDate(context);
@@ -537,7 +541,7 @@ class _ApplyForLeaveState extends State<ApplyForTranscript> {
                       inputFormatters: [PhoneTextInputFormatter()], // Define the formatter
                       hintText: 'Enter Your Cell No',
                       validator: (value) =>
-                      value == null || value.isEmpty || value.length != 11
+                      value == null || value.isEmpty || value.length != 12
                           ? 'Please enter your cell number'
                           : null,
                     ),
@@ -1356,6 +1360,40 @@ class _ApplyForLeaveState extends State<ApplyForTranscript> {
     );
   }
 }
+class DateTextInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue,
+      TextEditingValue newValue,
+      ) {
+    String newText = newValue.text;
+
+    // Insert a '-' after the 2nd and 5th characters
+    if (newText.length == 2 || newText.length == 5) {
+      if (!newText.endsWith('-')) {
+        newText += '-';
+      }
+    }
+
+    // Check if the length of the date is already 10, if yes, do not allow further input
+    if (newText.length > 10) {
+      return oldValue; // Return the old value to prevent further input
+    }
+    if (newValue.text.isEmpty) {
+      return TextEditingValue.empty; // Return an empty value to clear the field
+    }
+
+    // Check if the user has deleted the entire date
+    if (oldValue.text.length > newValue.text.length) {
+      return TextEditingValue.empty; // Return an empty value to clear the field
+    }
+
+    return TextEditingValue(
+      text: newText,
+      selection: TextSelection.collapsed(offset: newText.length),
+    );
+  }
+}
 class CNICTextInputFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
@@ -1371,6 +1409,15 @@ class CNICTextInputFormatter extends TextInputFormatter {
     // Check if the length of the CNIC is already 15, if yes, do not allow further input
     if (newText.length > 15) {
       return oldValue; // Return the old value to prevent further input
+    }
+    if (newValue.text.isEmpty) {
+      return TextEditingValue.empty; // Return an empty value to clear the field
+    }
+
+
+    // Check if the user has deleted the entire phone number
+    if (oldValue.text.length > newValue.text.length) {
+      return TextEditingValue.empty; // Return an empty value to clear the field
     }
 
     return TextEditingValue(
@@ -1399,6 +1446,16 @@ class PhoneTextInputFormatter extends TextInputFormatter {
     // Check if the length of the phone number is already 11, if yes, do not allow further input
     if (newText.length > 12) {
       return oldValue; // Return the old value to prevent further input
+    }
+
+    // Check if the user has cleared the entire field
+    if (newValue.text.isEmpty) {
+      return TextEditingValue.empty; // Return an empty value to clear the field
+    }
+
+    // Check if the user has deleted the entire phone number
+    if (oldValue.text.length > newValue.text.length) {
+      return TextEditingValue.empty; // Return an empty value to clear the field
     }
 
     return TextEditingValue(
