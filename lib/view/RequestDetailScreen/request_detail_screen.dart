@@ -172,20 +172,11 @@ class _RequestDetailScreenState extends State<RequestDetailScreen> {
                       _buildInfoRow('Reference #:',
                           _buildStyledContainer('239045', Colors.teal)),
                       Divider(),
-                      _buildInfoRow('Student Name:', 'Muhammad Anus'),
-                      Divider(),
                       _buildInfoRow('Student CNIC:', '35401-2334567-1'),
                       Divider(),
                       _buildInfoRow('Date of Birth:', '12-12-2024'),
                       Divider(),
                       _buildInfoRow('Timing:', 'weekend'),
-                      Divider(),
-                      _buildInfoRow('Mobile Number:', '0343-1451403'),
-                      Divider(),
-                      _buildInfoRow('Email:', 'anusakhtar@gmail.com'),
-                      Divider(),
-                      _buildInfoRow(
-                          'Address:', 'Minhaj university Lahore, Pipe stop'),
                     ],
                   ),
                 ),
@@ -203,7 +194,7 @@ class _RequestDetailScreenState extends State<RequestDetailScreen> {
                     ),
                     SizedBox(width: 10,),
                     AppText(
-                      text: 'Challan Info',
+                      text: 'Application Info',
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
                     ),
@@ -236,42 +227,7 @@ class _RequestDetailScreenState extends State<RequestDetailScreen> {
                       _buildInfoRow('Issue Date:', '-'),
                       Divider(),
                       _buildInfoRow('Delivered Date:', '-'),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  children: [
-                    Container(
-                      height: 30,
-                      width: 30,
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.circular(50),
-                          child: Image.asset('assets/other.png')),
-                    ),
-                    SizedBox(width: 10,),
-                    AppText(
-                      text: 'Other Info',
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 10),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Colors.grey.shade200),
-                    color: Colors.white,
-                  ),
-                  child: Column(
-                    children: [
+                      Divider(),
                       _buildInfoRow('Application For:',
                           _buildStyledContainer('Degree', Colors.lightGreen)),
                       Divider(),
@@ -287,6 +243,7 @@ class _RequestDetailScreenState extends State<RequestDetailScreen> {
                     ],
                   ),
                 ),
+
               ],
             ),
           ),
@@ -356,7 +313,7 @@ class _RequestDetailScreenState extends State<RequestDetailScreen> {
         StepProgressIndicator(
           totalSteps: 5,
           currentStep: currentStep,
-          size: 40,
+          size: 50,
           selectedColor: _getStatusColor(currentStep),
           unselectedColor: Colors.grey,
           customStep: (index, color, _) => Container(
@@ -367,18 +324,19 @@ class _RequestDetailScreenState extends State<RequestDetailScreen> {
             ),
             child: Center(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
                     _getStatusIcon(index),
                     color: Colors.white,
-                    size: 20,
+                    size: 22,
                   ),
                   SizedBox(
                     height: 2,
                   ),
                   AppText(
                     text: progressList[index],
-                    fontSize: 8,
+                    fontSize: 10,
                     textColor: Colors.white,
                   ),
                 ],

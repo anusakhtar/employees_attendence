@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Employee Attendance App',
-      home: RequestDetailScreen(),
+      home:ApplyForTranscript(),
     );
   }
 }

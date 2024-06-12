@@ -1033,48 +1033,48 @@ class _ApplyForLeaveState extends State<ApplyForTranscript> {
                     CustomBotton(
                       label: 'Submit',
                       onTap: () {
-                        if (_formKey.currentState!.validate()) {
-                          setState(() {
-                            bool hasError = false; // Track if there's any error
+                        // if (_formKey.currentState!.validate()) {
+                        //   setState(() {
+                        //     bool hasError = false; // Track if there's any error
+                        //
+                        //     if (_matricFilePath == null) {
+                        //       _errorUploadCertification = 'Please upload the Matriculation Certificate.';
+                        //       hasError = true; // Set hasError to true if there's an error
+                        //     } else {
+                        //       _errorUploadCertification = null; // Clear the error message if there's no error
+                        //     }
+                        //     if (_cnicFilePath == null) {
+                        //       _errorUploadCNIC = 'Please upload the Original CNIC';
+                        //       hasError = true; // Set hasError to true if there's an error
+                        //     } else {
+                        //       _errorUploadCNIC = null; // Clear the error message if there's no error
+                        //     }
+                        //
+                        //     if (_passportFilePath == null) {
+                        //       _errorUploadPassport = 'Please upload your Image';
+                        //       hasError = true; // Set hasError to true if there's an error
+                        //     } else {
+                        //       _errorUploadPassport = null; // Clear the error message if there's no error
+                        //     }
+                        //
+                        //     if (documentType == 'Degree') {
+                        //       if (_transcriptFilePath == null) {
+                        //         _errorTranscriptFile = 'Please upload your transcript';
+                        //         hasError = true; // Set hasError to true if there's an error
+                        //       } else {
+                        //         _errorTranscriptFile = null; // Clear the error message if there's no error
+                        //       }
+                        //     }
 
-                            if (_matricFilePath == null) {
-                              _errorUploadCertification = 'Please upload the Matriculation Certificate.';
-                              hasError = true; // Set hasError to true if there's an error
-                            } else {
-                              _errorUploadCertification = null; // Clear the error message if there's no error
-                            }
-                            if (_cnicFilePath == null) {
-                              _errorUploadCNIC = 'Please upload the Original CNIC';
-                              hasError = true; // Set hasError to true if there's an error
-                            } else {
-                              _errorUploadCNIC = null; // Clear the error message if there's no error
-                            }
-
-                            if (_passportFilePath == null) {
-                              _errorUploadPassport = 'Please upload your Image';
-                              hasError = true; // Set hasError to true if there's an error
-                            } else {
-                              _errorUploadPassport = null; // Clear the error message if there's no error
-                            }
-
-                            if (documentType == 'Degree') {
-                              if (_transcriptFilePath == null) {
-                                _errorTranscriptFile = 'Please upload your transcript';
-                                hasError = true; // Set hasError to true if there's an error
-                              } else {
-                                _errorTranscriptFile = null; // Clear the error message if there's no error
-                              }
-                            }
-
-                            if (!hasError) {
+                            // if (!hasError) {
                               if (documentType == 'Degree') {
                                 _showDegreeNoticeBox(context);
                               } else if (documentType == 'Transcript') {
                                 _showTranscriptNoticeBox(context);
                               }
-                            }
-                          });
-                        }
+                            // }
+                        //   });
+                        // }
                       },
                     ),
 
@@ -1096,19 +1096,22 @@ class _ApplyForLeaveState extends State<ApplyForTranscript> {
       context: context,
       builder: (context) {
         return AlertDialog(
+          surfaceTintColor: Colors.white,
           title: Text(
             'Processing Fee & Details',
             style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.blueAccent,
-                fontSize: 20),
+              fontWeight: FontWeight.bold,
+              color: Colors.deepPurple,
+              fontSize: 20,
+            ),
           ),
           content: SingleChildScrollView(
-            child: ListBody(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 RichText(
                   textAlign: TextAlign.justify,
-                  text: TextSpan(
+                  text: const TextSpan(
                     style: TextStyle(fontSize: 14, color: Colors.black),
                     children: [
                       TextSpan(
@@ -1121,41 +1124,53 @@ class _ApplyForLeaveState extends State<ApplyForTranscript> {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       TextSpan(text: 'Within 38 working days\n\n'),
+                      WidgetSpan(
+                        child: Icon(Icons.star, size: 14, color: Colors.deepPurple),
+                      ),
                       TextSpan(
-                        text: '1. Passport Size ',
+                        text: ' Passport Size ',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       TextSpan(
-                          text:
-                              'picture (preferably most recent one) having a '),
+                        text: 'picture (preferably most recent one) having a ',
+                      ),
                       TextSpan(
                         text: 'blue background.\n\n',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
+                      WidgetSpan(
+                        child: Icon(Icons.star, size: 14, color: Colors.deepPurple),
+                      ),
                       TextSpan(
-                          text:
-                              '2. For Masters students who have not attempted '),
+                        text: ' For Masters students who have not attempted ',
+                      ),
                       TextSpan(
                         text: 'MAT',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       TextSpan(
-                          text:
-                              ' (Minhaj Aptitude Test) only the original result of '),
+                        text: ' (Minhaj Aptitude Test) only the original result of ',
+                      ),
                       TextSpan(
                         text: 'NTS GAT',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       TextSpan(text: ' will be accepted.\n\n'),
-                      TextSpan(text: '3. Image of '),
+                      WidgetSpan(
+                        child: Icon(Icons.star, size: 14, color: Colors.deepPurple),
+                      ),
+                      TextSpan(text: ' Image of '),
                       TextSpan(
                         text: 'Matriculation Certificate (Sanad)',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       TextSpan(
-                          text:
-                              ' is mandatory. Result intimation or Screenshot of the website shall not be accepted.\n\n'),
-                      TextSpan(text: '4. Image of '),
+                        text: ' is mandatory. Result intimation or Screenshot of the website shall not be accepted.\n\n',
+                      ),
+                      WidgetSpan(
+                        child: Icon(Icons.star, size: 14, color: Colors.deepPurple),
+                      ),
+                      TextSpan(text: ' Image of '),
                       TextSpan(
                         text: 'Original CNIC',
                         style: TextStyle(fontWeight: FontWeight.bold),
@@ -1163,32 +1178,50 @@ class _ApplyForLeaveState extends State<ApplyForTranscript> {
                       TextSpan(
                         text: ' The CNIC must be valid (not expired).\n\n',
                       ),
+                      WidgetSpan(
+                        child: Icon(Icons.star, size: 14, color: Colors.deepPurple),
+                      ),
                       TextSpan(
-                          text:
-                              '5. All attachments must be clearly scanned, blurry documents shall be discarded and the application will not be proceeded.'),
+                        text: ' All attachments must be clearly scanned, blurry documents shall be discarded and the application will not be proceeded.',
+                      ),
                     ],
                   ),
                 ),
-                SizedBox(height: 10),
-                Row(
-                  children: [
-                    Obx(() => Checkbox(
-                        value: transcriptController.isCheckedDegree.value,
-                        onChanged:(newValue){
-                          transcriptController.onChangedDegree(newValue);
-                        }),
-                    ),
-                    Text("I have read all the above")
-                  ],
+                const SizedBox(height: 20),
+                Container(
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.deepPurple, width: 1),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Obx(
+                            () => Checkbox(
+                          value: transcriptController.isCheckedDegree.value,
+                          onChanged: (newValue) {
+                            transcriptController.onChangedDegree(newValue);
+                          },
+                        ),
+                      ),
+                      const Expanded(
+                        child: Text(
+                          "I have read all the above requirements",
+                          style: TextStyle(fontSize: 14),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-
               ],
             ),
           ),
           actions: [
             CustomBotton(
-              width: 100,
-              height: 40,
+              borderRadius: 10,
+              width: 110,
+              height: 35,
               backgroundColor: Colors.red,
               onTap: () {
                 Navigator.of(context).pop();
@@ -1196,8 +1229,9 @@ class _ApplyForLeaveState extends State<ApplyForTranscript> {
               label: 'Close',
             ),
             CustomBotton(
-              width: 100,
-              height: 40,
+              borderRadius: 10,
+              width: 110,
+              height: 35,
               backgroundColor: Colors.deepPurple,
               onTap: () {
                 if (transcriptController.isCheckedDegree.value) {
@@ -1207,11 +1241,12 @@ class _ApplyForLeaveState extends State<ApplyForTranscript> {
                     const SnackBar(content: Text('Processing Data')),
                   );
                 } else {
-                  // Show a message indicating that the checkbox must be checked
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                        content: Text(
-                            'Please confirm that you have read all the above')),
+                      content: Text(
+                        'Please confirm that you have read all the above',
+                      ),
+                    ),
                   );
                 }
               },
@@ -1223,16 +1258,20 @@ class _ApplyForLeaveState extends State<ApplyForTranscript> {
     );
   }
 
+
+
+
   void _showTranscriptNoticeBox(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
+          surfaceTintColor: Colors.white,
           title: Text(
             'Processing Fee & Details',
             style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: Colors.blueAccent,
+                color: Colors.deepPurple,
                 fontSize: 20),
           ),
           content: SingleChildScrollView(
@@ -1253,8 +1292,11 @@ class _ApplyForLeaveState extends State<ApplyForTranscript> {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       TextSpan(text: 'Within 35 working days\n\n'),
+                      WidgetSpan(
+                        child: Icon(Icons.star, size: 14, color: Colors.deepPurple),
+                      ),
                       TextSpan(
-                        text: '1. Passport Size ',
+                        text: ' Passport Size ',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       TextSpan(
@@ -1264,9 +1306,12 @@ class _ApplyForLeaveState extends State<ApplyForTranscript> {
                         text: 'blue background.\n\n',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
+                      WidgetSpan(
+                        child: Icon(Icons.star, size: 14, color: Colors.deepPurple),
+                      ),
                       TextSpan(
                           text:
-                              '2. For Masters students who have not attempted '),
+                              ' For Masters students who have not attempted '),
                       TextSpan(
                         text: 'MAT',
                         style: TextStyle(fontWeight: FontWeight.bold),
@@ -1279,7 +1324,10 @@ class _ApplyForLeaveState extends State<ApplyForTranscript> {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       TextSpan(text: ' will be accepted.\n\n'),
-                      TextSpan(text: '3. Image of '),
+                      WidgetSpan(
+                        child: Icon(Icons.star, size: 14, color: Colors.deepPurple),
+                      ),
+                      TextSpan(text: ' Image of '),
                       TextSpan(
                         text: 'Matriculation Certificate (Sanad)',
                         style: TextStyle(fontWeight: FontWeight.bold),
@@ -1287,7 +1335,10 @@ class _ApplyForLeaveState extends State<ApplyForTranscript> {
                       TextSpan(
                           text:
                               ' is mandatory. Result intimation or Screenshot of the website shall not be accepted.\n\n'),
-                      TextSpan(text: '4. Image of '),
+                      WidgetSpan(
+                        child: Icon(Icons.star, size: 14, color: Colors.deepPurple),
+                      ),
+                      TextSpan(text: ' Image of '),
                       TextSpan(
                         text: 'Original CNIC',
                         style: TextStyle(fontWeight: FontWeight.bold),
@@ -1295,22 +1346,33 @@ class _ApplyForLeaveState extends State<ApplyForTranscript> {
                       TextSpan(
                         text: ' The CNIC must be valid (not expired).\n\n',
                       ),
+                      WidgetSpan(
+                        child: Icon(Icons.star, size: 14, color: Colors.deepPurple),
+                      ),
                       TextSpan(
                           text:
-                              '5. All attachments must be clearly scanned, blurry documents shall be discarded and the application will not be proceeded.'),
+                              ' All attachments must be clearly scanned, blurry documents shall be discarded and the application will not be proceeded.'),
                     ],
                   ),
                 ),
-                Row(
-                  children: [
-                    Obx(() => Checkbox(
-                        value: transcriptController.isCheckedTranscript.value,
-                        onChanged:(newValue){
-                          transcriptController.onChangedTranscript(newValue);
-                        }),
-                    ),
-                    Text("I have read all the above")
-                  ],
+                SizedBox(height: 10,),
+                Container(
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.deepPurple, width: 1),
+                  ),
+                  child: Row(
+                    children: [
+                      Obx(() => Checkbox(
+                          value: transcriptController.isCheckedTranscript.value,
+                          onChanged:(newValue){
+                            transcriptController.onChangedTranscript(newValue);
+                          }),
+                      ),
+                      Text("I have read all the above")
+                    ],
+                  ),
                 ),
               ],
             ),
